@@ -13,7 +13,7 @@ class NetpbmDebian < Formula
 
   depends_on "coreutils" => :build
 
-  depends_on "libtiff" => :recommended
+  depends_on "libtiff" => :optional
   # Doesn't work with modern jpeg or libpng, so...
   depends_on "jpeg6b" => :recommended
   depends_on "libpng12" => :recommended
@@ -59,7 +59,7 @@ class NetpbmDebian < Formula
       end
     end
 
-    system "make", "install", "PREFIX=#{prefix}"
+    system "make", "PREFIX=#{prefix}", "install"
   end
 
   test do
