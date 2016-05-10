@@ -30,7 +30,6 @@ class NetpbmDebian < Formula
 
     inreplace "Makefile.config" do |s|
       s.change_make_var! "INSTALL", "ginstall -D"
-      s.change_make_var! "INSTALLMAN", "$(INSTALL_PREFIX)/share/man"
       s.change_make_var! "CFLAGS_SHLIB", "-fno-common"
       s.change_make_var! "NETPBMLIBTYPE", "dylib"
       s.change_make_var! "NETPBMLIBSUFFIX", "dylib"
@@ -61,8 +60,8 @@ class NetpbmDebian < Formula
     end
 
     ENV.deparallelize
-    system "make", "PREFIX=#{prefix}"
-    system "make", "PREFIX=#{prefix}", "install"
+    system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{prefix}/share/man"
+    system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{prefix}/share/man", "install"
   end
 
   test do
