@@ -1,25 +1,62 @@
-# Documentation: https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Formula-Cookbook.md
-#                http://www.rubydoc.info/github/Homebrew/brew/master/Formula
-# PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
+# Since the "main" netpbm version makes me crazy,
+# let's package up the Debian fork.
+#
+# I'm ripping off much of the work from the homebrew-core formula.
 
 class NetpbmDebian < Formula
-  desc ""
-  homepage ""
-  url ":pserver:anonymous@cvs.alioth.debian.org:/cvsroot/netpbm"
-  sha256 ""
+  desc "Debian fork of NetPBM"
+  homepage "https://packages.debian.org/source/wheezy/netpbm-free"
+  url "git://anonscm.debian.org/collab-maint/netpbm.git", :tag => 10.0-15
+  version "10.0-15"
 
-  # depends_on "cmake" => :build
-  #depends_on :x11 # if your formula requires any X11/XQuartz components
+  option :universal
+
+  depends_on "coreutils" => :build
+
+  depends_on "libtiff" => :recommended
+  depends_on "jpeg6b" => :optional
+  # Doesn't work with libpng >= 1.5, so...
+  depends_on "libpng12" => :optional
 
   def install
-    # ENV.deparallelize  # if your formula fails when building in parallel
+    ENV.universal_binary if build.universal?
+    jpeg = Formula["jpeg6b"].opt_prefix
+    libtiff = Formula["libtiff"].opt_prefix
+    libpng = Formula["libpng12"].opt_prefix
 
-    # Remove unrecognized options if warned by configure
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
-    # system "cmake", ".", *std_cmake_args
+    cp "Makefile.config.in" "Makefile.config"
+
+    inreplace "Makefile.config" do |s|
+      s.change_make_var! "INSTALL", "ginstall -D"
+      s.change_make_var! "CFLAGS_SHLIB", "-fno-common"
+      s.change_make_var! "NETPBMLIBTYPE", "dylib"
+      s.change_make_var! "NETPBMLIBSUFFIX", "dylib"
+      s.change_make_var! "LDSHLIB", "--shared -o $(SONAME)"
+      s.change_make_var! "BUILD_FIASCO", "N"
+      if build.with? "libtiff"
+        s.change_make_var! "TIFFLIB_DIR", "#{libtiff}/lib"
+        s.change_make_var! "TIFFHDR_DIR", "#{libtiff}/include"
+        s.change_make_var! "TIFFLIB_LDFLAGS", "-lz"
+      else
+        s.change_make_var! "TIFFLIB_DIR", "NONE"
+	s.change_make_var! "TIFFHDR_DIR", "NONE"
+      end
+      if build.with? "jpeg"
+        s.change_make_var! "JPEGLIB_DIR", "#{jpeg}/lib"
+        s.change_make_var! "JPEGHDR_DIR", "#{jpeg}/include"
+      else
+        s.change_make_var! "JPEGLIB_DIR", "NONE"
+	s.change_make_var! "JPEGHDR_DIR", "NONE"
+      end
+      if build.with? "libpng"
+        s.change_make_var! "PNGLIB_DIR", "#{libpng}/lib"
+        s.change_make_var! "PNGHDR_DIR", "#{libpng}/include"
+      else
+        s.change_make_var! "PNGLIB_DIR", "NONE"
+	s.change_make_var! "PNGHDR_DIR", "NONE"
+      end
+    end
+
     system "make", "install" # if this fails, try separate make/make install steps
   end
 
