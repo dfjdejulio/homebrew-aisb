@@ -14,9 +14,11 @@ class NetpbmDebian < Formula
   depends_on "coreutils" => :build
 
   depends_on "libtiff" => :recommended
-  depends_on "jpeg6b" => :optional
+  depends_on "jpeg6b" => :recommended
   # Doesn't work with libpng >= 1.5, so...
-  depends_on "libpng12" => :optional
+  depends_on "libpng12" => :recommended
+
+  conflicts_with "netpbm", :because => "fork of the same software"
 
   def install
     ENV.universal_binary if build.universal?
