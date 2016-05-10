@@ -43,14 +43,14 @@ class NetpbmDebian < Formula
         s.change_make_var! "TIFFLIB_DIR", "NONE"
 	s.change_make_var! "TIFFHDR_DIR", "NONE"
       end
-      if build.with? "jpeg"
+      if build.with? "jpeg6b"
         s.change_make_var! "JPEGLIB_DIR", "#{jpeg}/lib"
         s.change_make_var! "JPEGHDR_DIR", "#{jpeg}/include"
       else
         s.change_make_var! "JPEGLIB_DIR", "NONE"
 	s.change_make_var! "JPEGHDR_DIR", "NONE"
       end
-      if build.with? "libpng"
+      if build.with? "libpng12"
         s.change_make_var! "PNGLIB_DIR", "#{libpng}/lib"
         s.change_make_var! "PNGHDR_DIR", "#{libpng}/include"
       else
