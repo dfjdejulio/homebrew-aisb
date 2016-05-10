@@ -6,7 +6,7 @@
 class NetpbmDebian < Formula
   desc "Debian fork of NetPBM"
   homepage "https://packages.debian.org/source/wheezy/netpbm-free"
-  url "git://anonscm.debian.org/collab-maint/netpbm.git", :tag => 10.0-15
+  url "git://anonscm.debian.org/collab-maint/netpbm.git", :tag => "10.0-15"
   version "10.0-15"
 
   option :universal
@@ -14,8 +14,8 @@ class NetpbmDebian < Formula
   depends_on "coreutils" => :build
 
   depends_on "libtiff" => :recommended
+  # Doesn't work with modern jpeg or libpng, so...
   depends_on "jpeg6b" => :recommended
-  # Doesn't work with libpng >= 1.5, so...
   depends_on "libpng12" => :recommended
 
   conflicts_with "netpbm", :because => "fork of the same software"
