@@ -59,7 +59,7 @@ class NetpbmDebian < Formula
       end
     end
 
-    system "make", "install" # if this fails, try separate make/make install steps
+    system "make", "install", "PREFIX=#{prefix}"
   end
 
   test do
