@@ -6,7 +6,7 @@
 class NetpbmDebian < Formula
   desc "Debian fork of NetPBM"
   homepage "https://packages.debian.org/source/wheezy/netpbm-free"
-  url "git://anonscm.debian.org/collab-maint/netpbm.git", :tag => "10-0-15"
+  url "git://anonscm.debian.org/collab-maint/netpbm.git", :tag => "debian/10.0-15"
   version "10.0-15"
 
   option :universal
