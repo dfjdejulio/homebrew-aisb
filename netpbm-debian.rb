@@ -59,6 +59,8 @@ class NetpbmDebian < Formula
       end
     end
 
+    ENV.deparallelize
+    system "make", "PREFIX=#{prefix}"
     system "make", "PREFIX=#{prefix}", "install"
   end
 
