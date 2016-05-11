@@ -3,9 +3,14 @@
 
 class NetpbmDebian < Formula
   desc "Debian fork of NetPBM"
-  homepage "https://packages.debian.org/source/wheezy/netpbm-free"
-  url "git://anonscm.debian.org/collab-maint/netpbm.git", :tag => "debian/10.0-15.1", :shallow => false
-  version "10.0-15.1"
+  homepage "http://netpbm.alioth.debian.org/outside-debian.html"
+  url "http://http.debian.net/debian/pool/main/n/netpbm-free/netpbm-free_10.0.orig.tar.gz"
+  sha256 "ea3a653f3e5a32e09cea903c5861138f6a597670dff79e2b54e902f140cff2f3"
+  patch do
+    url "http://http.debian.net/debian/pool/main/n/netpbm-free/netpbm-free_10.0-15.3.diff.gz"
+    sha256 "42f9f2f98951f830bc738605fa4c698538c15aed1a0229162bdcf2c6cdf87915"
+  end
+  version "10.0-15.3"
 
   option :universal
 
@@ -14,8 +19,8 @@ class NetpbmDebian < Formula
 
   depends_on "libtiff" => :recommended
   # Doesn't work with modern jpeg or libpng, so...
-  depends_on "jpeg6b" => :recommended
-  depends_on "libpng12" => :recommended
+  depends_on "jpeg6b" => :optional
+  depends_on "libpng12" => :optional
 
   conflicts_with "netpbm", :because => "fork of the same software"
 
