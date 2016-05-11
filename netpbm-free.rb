@@ -16,17 +16,17 @@ class NetpbmFree < Formula
     sha256 "42f9f2f98951f830bc738605fa4c698538c15aed1a0229162bdcf2c6cdf87915"
   end
   version "10.0-15.3"
-  revision 2
+  revision 4
 
   option :universal
 
   # Just so I don't have to worry about not having GNU "install"...
   depends_on "coreutils" => :build
 
-  depends_on "libtiff" => :recommend
+  depends_on "libtiff" => :recommended
   # Doesn't work with modern jpeg or libpng, so...
-  depends_on "homebrew/versions/jpeg6b" => :recommend
-  depends_on "homebrew/versions/libpng12" => :recommend
+  depends_on "jpeg6b-keg" => :recommended
+  depends_on "homebrew/versions/libpng12" => :recommended
 
   conflicts_with "netpbm", :because => "fork of the same software"
 
@@ -54,7 +54,7 @@ class NetpbmFree < Formula
         s.change_make_var! "TIFFLIB_DIR", "NONE"
 	s.change_make_var! "TIFFHDR_DIR", "NONE"
       end
-      if build.with? "jpeg6b"
+      if build.with? "jpeg6b-keg"
         s.change_make_var! "JPEGLIB_DIR", "#{jpeg}/lib"
         s.change_make_var! "JPEGHDR_DIR", "#{jpeg}/include"
       else
