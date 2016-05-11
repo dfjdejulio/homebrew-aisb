@@ -1,7 +1,7 @@
 # Since the "main" netpbm version makes me crazy,
 # let's package up the Debian fork.
 
-class NetpbmDebian < Formula
+class NetpbmFree < Formula
   desc "Debian fork of NetPBM"
   homepage "http://netpbm.alioth.debian.org/outside-debian.html"
 
