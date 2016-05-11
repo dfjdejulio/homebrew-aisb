@@ -23,10 +23,10 @@ class NetpbmFree < Formula
   # Just so I don't have to worry about not having GNU "install"...
   depends_on "coreutils" => :build
 
-  depends_on "libtiff" => :optional
+  depends_on "libtiff" => :recommend
   # Doesn't work with modern jpeg or libpng, so...
-  depends_on "jpeg6b" => :recommend
-  depends_on "libpng12" => :recommend
+  depends_on "homebrew/versions/jpeg6b" => :recommend
+  depends_on "homebrew/versions/libpng12" => :recommend
 
   conflicts_with "netpbm", :because => "fork of the same software"
 
