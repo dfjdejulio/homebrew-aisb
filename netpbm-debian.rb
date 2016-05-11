@@ -4,8 +4,13 @@
 class NetpbmDebian < Formula
   desc "Debian fork of NetPBM"
   homepage "http://netpbm.alioth.debian.org/outside-debian.html"
+
   url "http://http.debian.net/debian/pool/main/n/netpbm-free/netpbm-free_10.0.orig.tar.gz"
   sha256 "ea3a653f3e5a32e09cea903c5861138f6a597670dff79e2b54e902f140cff2f3"
+
+  # Debian distributes the source as a tarball and a patch to begin with.
+  # This isn't a homebrew-specific patch, it's the patch to sync with
+  # the Debian version "10.0-15.3".
   patch do
     url "http://http.debian.net/debian/pool/main/n/netpbm-free/netpbm-free_10.0-15.3.diff.gz"
     sha256 "42f9f2f98951f830bc738605fa4c698538c15aed1a0229162bdcf2c6cdf87915"
@@ -65,8 +70,11 @@ class NetpbmDebian < Formula
     end
 
     ENV.deparallelize
-    system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{prefix}/share/man"
-    system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{prefix}/share/man", "install"
+    args = %W[
+      PREFIX=#{prefix}
+      INSTALLMAN=#{man}
+    ]
+    system "make", *args, "install"
   end
 
   test do
