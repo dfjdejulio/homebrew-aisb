@@ -70,6 +70,7 @@ class NetpbmDebian < Formula
     end
 
     ENV.deparallelize
+    system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{man}"
     system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{man}", "install"
   end
 
