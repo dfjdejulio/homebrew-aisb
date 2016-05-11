@@ -70,11 +70,7 @@ class NetpbmDebian < Formula
     end
 
     ENV.deparallelize
-    args = %W[
-      PREFIX=#{prefix}
-      INSTALLMAN=#{man}
-    ]
-    system "make", *args, "install"
+    system "make", "PREFIX=#{prefix}", "INSTALLMAN=#{man}", "install"
   end
 
   test do
