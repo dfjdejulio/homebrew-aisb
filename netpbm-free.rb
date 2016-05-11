@@ -16,16 +16,17 @@ class NetpbmFree < Formula
     sha256 "42f9f2f98951f830bc738605fa4c698538c15aed1a0229162bdcf2c6cdf87915"
   end
   version "10.0-15.3"
+  revision "2"
 
   option :universal
 
   # Just so I don't have to worry about not having GNU "install"...
   depends_on "coreutils" => :build
 
-  depends_on "libtiff" => :recommended
+  depends_on "libtiff" => :optional
   # Doesn't work with modern jpeg or libpng, so...
-  depends_on "jpeg6b" => :optional
-  depends_on "libpng12" => :optional
+  depends_on "jpeg6b" => :recommend
+  depends_on "libpng12" => :recommend
 
   conflicts_with "netpbm", :because => "fork of the same software"
 
