@@ -1,7 +1,5 @@
 # Since the "main" netpbm version makes me crazy,
 # let's package up the Debian fork.
-#
-# I'm ripping off much of the work from the homebrew-core formula.
 
 class NetpbmDebian < Formula
   desc "Debian fork of NetPBM"
@@ -11,9 +9,10 @@ class NetpbmDebian < Formula
 
   option :universal
 
+  # Just so I don't have to worry about not having GNU "install"...
   depends_on "coreutils" => :build
 
-  depends_on "libtiff" => :optional
+  depends_on "libtiff" => :recommended
   # Doesn't work with modern jpeg or libpng, so...
   depends_on "jpeg6b" => :recommended
   depends_on "libpng12" => :recommended
@@ -34,6 +33,7 @@ class NetpbmDebian < Formula
       s.change_make_var! "NETPBMLIBTYPE", "dylib"
       s.change_make_var! "NETPBMLIBSUFFIX", "dylib"
       s.change_make_var! "LDSHLIB", "--shared -o $(SONAME)"
+      # The "fiasco" stuff didn't build correctly, so...
       s.change_make_var! "BUILD_FIASCO", "N"
       if build.with? "libtiff"
         s.change_make_var! "TIFFLIB_DIR", "#{libtiff}/lib"
