@@ -31,9 +31,9 @@ class NetpbmFree < Formula
 
   def install
     ENV.universal_binary if build.universal?
-    jpeg = Formula["jpeg6b"].opt_prefix
-    libtiff = Formula["libtiff"].opt_prefix
-    libpng = Formula["libpng12"].opt_prefix
+    jpeg = Formula["jpeg6b"].prefix
+    libtiff = Formula["libtiff"].prefix
+    libpng = Formula["libpng12"].prefix
 
     cp "Makefile.config.in", "Makefile.config"
 
