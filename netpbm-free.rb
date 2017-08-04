@@ -27,7 +27,8 @@ class NetpbmFree < Formula
   # Doesn't work with modern jpeg or libpng, so...
   depends_on "jpeg@6" => :recommended
   #depends_on "jpeg6b-keg" => :recommended
-  depends_on "homebrew/versions/libpng12" => :recommended
+  #depends_on "homebrew/versions/libpng12" => :recommended
+  depends_on "libpng@12" => :recommended
 
   conflicts_with "netpbm", :because => "fork of the same software"
 
@@ -36,7 +37,7 @@ class NetpbmFree < Formula
     #jpeg = Formula["jpeg6b"].prefix
     jpeg = Formula["jpeg@6"].prefix
     libtiff = Formula["libtiff"].prefix
-    libpng = Formula["libpng12"].prefix
+    libpng = Formula["libpng@12"].prefix
 
     cp "Makefile.config.in", "Makefile.config"
 
