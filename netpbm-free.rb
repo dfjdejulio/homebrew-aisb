@@ -33,7 +33,8 @@ class NetpbmFree < Formula
 
   def install
     ENV.universal_binary if build.universal?
-    jpeg = Formula["jpeg6b"].prefix
+    #jpeg = Formula["jpeg6b"].prefix
+    jpeg = Formula["jpeg@6"].prefix
     libtiff = Formula["libtiff"].prefix
     libpng = Formula["libpng12"].prefix
 
