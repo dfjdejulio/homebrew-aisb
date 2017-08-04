@@ -25,7 +25,8 @@ class NetpbmFree < Formula
 
   depends_on "libtiff" => :recommended
   # Doesn't work with modern jpeg or libpng, so...
-  depends_on "jpeg6b-keg" => :recommended
+  depends_on "jpeg@6" => :recommended
+  #depends_on "jpeg6b-keg" => :recommended
   depends_on "homebrew/versions/libpng12" => :recommended
 
   conflicts_with "netpbm", :because => "fork of the same software"
